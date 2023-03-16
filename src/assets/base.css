@@ -1,0 +1,163 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --vt-c-white: #ffffff;
+  --vt-c-white-soft: #f8f8f8;
+  --vt-c-white-mute: #f2f2f2;
+
+  --vt-c-black: #181818;
+  --vt-c-black-soft: #222222;
+  --vt-c-black-mute: #282828;
+
+  --vt-c-indigo: #2c3e50;
+
+  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+
+  --vt-c-text-light-1: var(--vt-c-indigo);
+  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  --vt-c-text-dark-1: var(--vt-c-white);
+  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--vt-c-white);
+  --color-background-soft: var(--vt-c-white-soft);
+  --color-background-mute: var(--vt-c-white-mute);
+
+  --color-border: var(--vt-c-divider-light-2);
+  --color-border-hover: var(--vt-c-divider-light-1);
+
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--vt-c-black);
+    --color-background-soft: var(--vt-c-black-soft);
+    --color-background-mute: var(--vt-c-black-mute);
+
+    --color-border: var(--vt-c-divider-dark-2);
+    --color-border-hover: var(--vt-c-divider-dark-1);
+
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2);
+  }
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+#app{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.containAllDay, .containAllNight{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.containAllDay{
+  color: black;
+  background-color: #fff;
+}
+.containAllNight{
+  color: white;
+  background-color: #1c1c1c;
+}
+.themeDay, .themeNight{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+.themeDay{
+  border: 2px solid black;
+  background-color: #fff;
+  justify-content: flex-start;
+}
+.themeNight{
+  border: 2px solid #fff;
+  background-color: black;
+  justify-content: flex-end;
+}
+img[src="/day.png"]{
+  filter: invert(100%);
+}
+.containDay, .containNight{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.containDay{
+  background-color: black;
+}
+.containNight{
+  background-color: #fff;
+}
+button{
+  cursor: pointer;
+}
+a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+a:link{
+  text-decoration: none;
+}
+a button, a li button, .btnLike{
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 10px; 
+  border: 2px solid black;
+  font-weight: 700;
+}
+a button:hover{
+  background-color: black;
+  color: white;
+}
+a button:hover svg path{
+  fill: #fff;
+}
+.isDark{
+  background-color: #1c1c1c;
+  color: white;
+  border-color: #fff;
+}
+.isDark:hover{
+  background-color: white;
+  color: black;
+}
+.isDark:hover svg path{
+  fill: black;
+}
+ul li{
+  list-style: none;
+}
