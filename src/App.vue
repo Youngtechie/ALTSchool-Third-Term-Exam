@@ -10,7 +10,7 @@ let dark = 'Dark-Mode'
         <button :class="[{ themeNight: store.isDark }, { themeDay: !store.isDark }]" @click="store.changeTheme()"
                 :title="store.isDark === false ? light : dark">
                 <section :class="[{ containDay: !store.isDark }, { containNight: store.isDark }]">
-                    <img v-if="store.isDark === false" src="/day.png" alt="day-theme-img" :width="auto" :height="auto">
+                    <img v-if="store.isDark === false" src="/day.png" alt="day-theme-img" width="auto" height="auto">
                     <img v-else src="/night.png" alt="night-theme-img" :width="auto" :height="auto">
                 </section>
         </button>
