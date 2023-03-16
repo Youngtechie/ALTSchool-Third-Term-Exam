@@ -23,13 +23,9 @@ const router = createRouter({
       component: EachRepo,
     },
     {
-      path: '/404',
+      path: '/:catchAll(.*)',
       name: 'ErrorPage',
       component: ErrorPage
-    },
-    {
-      path: '/:catchAll(.*)',
-      redirect: '404'
     }
   ]
 })
