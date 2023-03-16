@@ -23,7 +23,7 @@ const router = createRouter({
       component: EachRepo,
     },
     {
-      path: '/*',
+      path: '*',
       name: 'ErrorPage',
       component: ErrorPage
     }
