@@ -22,11 +22,7 @@ const router = createRouter({
       name: 'EachRepo',
       component: EachRepo,
     },
-{
-path: '/*',
-name: 'ErrorPage',
-component: ErrorPage
-}
+    { path: '/:pathMatch(.*)*', name: 'ErrorPage', component: ErrorPage }
   ]
 })
 
