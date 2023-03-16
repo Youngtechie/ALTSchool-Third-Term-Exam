@@ -26,6 +26,7 @@ const router = createRouter({
 path: '/*',
 name: 'ErrorPage',
 component: ErrorPage
+}
   ]
 })
 
