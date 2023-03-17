@@ -73,10 +73,11 @@ watchEffect(async () => {
 // Function to change the current page number
 const changePage = (n) => {
     currentPosition.value = n
+    //set currentPosition value to n
     posts.value.forEach((post) => {
         post.removeAttribute('id')
         if (post.innerHTML === `${ n }`) {
-        post.setAttribute("id", 'activePage')
+        post.setAttribute("id", 'activePage') // give the current and active post the attribute (id, activePage)
         }
     })
 }
@@ -96,11 +97,13 @@ onUpdated(() => {
 const Next = () => {
     if (currentPosition.value < displayed.value.length + 1) {
         currentPosition.value += 1
+        //Add one from the currentposition value
     }
     if (currentPosition.value > 3 && currentPosition.value < btns.value.length + 1) {
+        //if currentposition value is great than 3 and currentposition is less than the number of the btns present.
         Editbtns.value.forEach((btn, index) => {
-            btn = btn + 1
-            Editbtns.value.splice(index, 1, btn)
+            btn = btn + 1 //Add one to the present element in editbtns
+            Editbtns.value.splice(index, 1, btn) // then replace the previous btn starting from index of the btn with the new btn
         })
     }
 }
@@ -109,11 +112,13 @@ const Next = () => {
 const Prev = () => {
     if (currentPosition.value < displayed.value.length + 1 && currentPosition.value > 1) {
         currentPosition.value -= 1
+        //subtract one from the currentposition value
     }
     if (Editbtns.value[0] !== 1) {
+        //if editbtns first element is not 0
         Editbtns.value.forEach((btn, index) => {
-            btn = btn - 1
-            Editbtns.value.splice(index, 1, btn)
+            btn = btn - 1 //subtract one from the present element in editbtns
+            Editbtns.value.splice(index, 1, btn) // then replace the previous btn starting from index of the btn with the new btn
         })
     }
 }
@@ -124,9 +129,9 @@ onMounted(() => {
     id = setTimeout(() => {
         if (datas.value !== null) {
             Repos.value = [...datas.value]
-            Splice.value = [...Repos.value]
-            length.value = Repos.value.length
-            positions.value = Math.ceil(length.value / neededLength.value)
+            Splice.value = [...Repos.value] //Duplicate the original repos container
+            length.value = Repos.value.length //Length of the total repos fetched
+            positions.value = Math.ceil(length.value / neededLength.value) // Length / 5, five repos is needed in each page
             for (let i = 0; i < positions.value; i++) {
                 displayed.value.push(Splice.value.splice(0, 5))
                 btns.value.push(i + 1)
@@ -135,6 +140,9 @@ onMounted(() => {
                     continue
                 }
             }
+            //The above loop is get the specific number of repos to be displayed into the displayed value
+            //at the same time, push the iterate value + 1 into btns which serve as the container of the numbers to be clicked.
+            //Editbtns value is actually the accepted values to be presented after the prev btn and before the next btn.(Just 3 numbers are accepted)
         }
     }, 3000)
 })
