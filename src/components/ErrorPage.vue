@@ -8,6 +8,9 @@
     </section>
 </template>
 <script setup>
+import { RouterLink } from 'vue-router';
+import { useThemeStore } from '../stores/theme';
+const store = useThemeStore()
 </script>
 <style scoped>
 .errorPage{
