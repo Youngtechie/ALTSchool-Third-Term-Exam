@@ -29,15 +29,26 @@
 
         <RouterLink to="/"><button :class="{ isDark: store.isDark }">Go Home</button></RouterLink>
     </section>
+<!--
+This component is rendering a list of repositories, with pagination functionality.
+The template is using conditional rendering with v-if to check whether there are any repositories to load.
+If there are no repositories (Repos.length === 0), then the component is rendering a LoadingRepos component.
+If there are repositories to load, then the component is rendering the list of repositories and pagination controls.
+The v-for directive is being used to iterate over the displayed array of repositories, which is determined by the current pagination position (currentPosition).
+The template is also using RouterLink to create links to the repository pages, as well as a "Go Home" button that links to the home page.
+-->
 </template>
 <script setup>
+// Import the LoadingRepos component and various Vue functions and hooks
 import LoadingRepos from './LoadingRepos.vue';
 import { ref, watchEffect, onUnmounted, onMounted, onUpdated } from 'vue'
 import { RouterLink } from 'vue-router';
 import { useThemeStore } from '../stores/theme';
 
+// Access the theme store
 const store = useThemeStore()
 
+// Initialize variables
 let id;
 const posts = ref(null)
 const length = ref(0)
@@ -53,78 +64,82 @@ const Editbtns = ref([])
 const Prevbtn = '<'
 const Nextbtn = '>'
 
+// Watch for changes in the data from the API
 watchEffect(async () => {
-    const res = await fetch('https://api.github.com/users/Youngtechie/repos')
-    datas.value = await res.json()
+const res = await fetch('https://api.github.com/users/Youngtechie/repos')
+datas.value = await res.json()
 })
 
-
-
+// Function to change the current page number
 const changePage = (n) => {
-    currentPosition.value = n
-    posts.value.forEach((post) => {
-        post.removeAttribute('id')
-        if (post.innerHTML === `${n}`) {
-            post.setAttribute("id", 'activePage')
-        }
-    })
+currentPosition.value = n
+posts.value.forEach((post) => {
+post.removeAttribute('id')
+if (post.innerHTML === ${n}) {
+post.setAttribute("id", 'activePage')
+}
+})
 }
 
+// Update the active page number on page update
 onUpdated(() => {
-    posts.value = document.querySelectorAll('.pagination ul li button')
-    posts.value.forEach((post) => {
-        post.removeAttribute('id')
-        if (post.innerText === `${currentPosition.value}`) {
-            post.setAttribute("id", 'activePage')
-        }
-    })
+posts.value = document.querySelectorAll('.pagination ul li button')
+posts.value.forEach((post) => {
+post.removeAttribute('id')
+if (post.innerText === ${currentPosition.value}) {
+post.setAttribute("id", 'activePage')
+}
+})
 })
 
+// Function to move to the next page
 const Next = () => {
-    if (currentPosition.value < displayed.value.length + 1) {
-        currentPosition.value += 1
-    }
-    if (currentPosition.value > 3 && currentPosition.value < btns.value.length + 1) {
-        Editbtns.value.forEach((btn, index) => {
-            btn = btn + 1
-            Editbtns.value.splice(index, 1, btn)
-        })
-    }
+if (currentPosition.value < displayed.value.length + 1) {
+currentPosition.value += 1
 }
+if (currentPosition.value > 3 && currentPosition.value < btns.value.length + 1) {
+Editbtns.value.forEach((btn, index) => {
+btn = btn + 1
+Editbtns.value.splice(index, 1, btn)
+})
+}}
+
+// Function to move to the previous page
 const Prev = () => {
-    if (currentPosition.value < displayed.value.length + 1 && currentPosition.value > 1) {
-        currentPosition.value -= 1
-    }
-    if (Editbtns.value[0] !== 1) {
-        Editbtns.value.forEach((btn, index) => {
-            btn = btn - 1
-            Editbtns.value.splice(index, 1, btn)
-        })
-    }
+if (currentPosition.value < displayed.value.length + 1 && currentPosition.value > 1) {
+currentPosition.value -= 1
+}
+if (Editbtns.value[0] !== 1) {
+Editbtns.value.forEach((btn, index) => {
+btn = btn - 1
+Editbtns.value.splice(index, 1, btn)
+})
+}
 }
 
+// Fetch data from the API and initialize variables on component mount
 onMounted(() => {
-    console.log()
-    id = setTimeout(() => {
-        if (datas.value !== null) {
-            Repos.value = [...datas.value]
-            Splice.value = [...Repos.value]
-            length.value = Repos.value.length
-            positions.value = Math.ceil(length.value / neededLength.value)
-            for (let i = 0; i < positions.value; i++) {
-                displayed.value.push(Splice.value.splice(0, 5))
-                btns.value.push(i + 1)
-                if (i < 3) {
-                    Editbtns.value.push(i + 1)
-                    continue
-                }
-            }
-        }
-    }, 3000)
+console.log()
+id = setTimeout(() => {
+if (datas.value !== null) {
+Repos.value = [...datas.value]
+Splice.value = [...Repos.value]
+length.value = Repos.value.length
+positions.value = Math.ceil(length.value / neededLength.value)
+for (let i = 0; i < positions.value; i++) {
+displayed.value.push(Splice.value.splice(0, 5))
+btns.value.push(i + 1)
+if (i < 3) {
+Editbtns.value.push(i + 1)
+continue
+}
+}
+}
+}, 3000)
 })
 
+// Clear the timeout on component unmount
 onUnmounted(() => clearTimeout(id))
-
 </script>
 <style scoped>
 .container,
