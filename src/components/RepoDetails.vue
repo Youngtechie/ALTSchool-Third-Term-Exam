@@ -3,6 +3,7 @@ import { ref, watchEffect, onMounted, onUnmounted } from 'vue'
 import LoadingRepos from './LoadingRepos.vue'
 import { useThemeStore } from '../stores/theme';
 const store = useThemeStore()
+import { RouterLink } from 'vue-router';
 
 let id;
 const datas = ref(null)
