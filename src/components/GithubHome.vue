@@ -88,23 +88,46 @@
         </section>
 
     </section>
+
+<!--
+This is a piece of Vue.js code that displays information about a GitHub user's profile.
+Here's what the code does:
+It uses a custom component called "loading-repos" that displays a loading animation while the user's information is being fetched. 
+This component is only shown when the "user" variable is null.
+Once the user's information is available (i.e., when "user" is not null), the component shows several sections with different classes that define their styling. 
+These sections display the user's profile picture, name, bio, location, number of followers and following, and the number of public repositories they have.
+The final section includes a button that links to the user's GitHub page.
+-->
 </template>
 <script setup>
+// Import Vue modules
 import { ref, watchEffect, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router';
+
+// Import components
 import LoadingRepos from './LoadingRepos.vue';
+
+// Import store
 import { useThemeStore } from '../stores/theme';
 
+// Declare variables
 let id;
 let twitterUrl;
+
+// Create refs
 const datas = ref(null)
 const user = ref(null)
+
+// Get store instance
 const store = useThemeStore()
 
+// Fetch user data from GitHub API
 watchEffect(async () => {
     const res = await fetch("https://api.github.com/users/Youngtechie")
     datas.value = await res.json()
 })
+
+// Set user data and Twitter URL when component is mounted
 onMounted(() => {
     id = setTimeout(() => {
         if (datas.value !== null) {
@@ -112,10 +135,11 @@ onMounted(() => {
             twitterUrl = `https://twitter.com/${user.value.twitter_username}`
         }
     }, 3000)
-
 })
 
+// Clear timeout when component is unmounted
 onUnmounted(() => clearTimeout(id))
+
 </script>
 <style scoped>
 .githubHome,
