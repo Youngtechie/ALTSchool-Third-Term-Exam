@@ -21,9 +21,8 @@ const router = createRouter({
       path: '/YoungTechie/repo/:repoName',
       name: 'EachRepo',
       component: EachRepo,
-    },
-    { path: '/:pathMatch(.*)+', name: 'ErrorPage', component: ErrorPage }
-  ]
+    }
+    ]
 })
 
 export default router
