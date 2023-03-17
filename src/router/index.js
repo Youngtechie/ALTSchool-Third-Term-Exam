@@ -22,7 +22,7 @@ const router = createRouter({
       name: 'EachRepo',
       component: EachRepo,
     },
-    { path: '/:catchAll(.*)+', redirect: '/'}
+    { path: '/:catchAll(.*)*', redirect: '/'}
     ]
 })
 
