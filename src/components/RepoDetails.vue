@@ -1,30 +1,40 @@
 <script setup>
-import { ref, watchEffect, onMounted, onUnmounted } from 'vue'
-import LoadingRepos from './LoadingRepos.vue'
+import { ref, watchEffect, onMounted, onUnmounted } from 'vue';
+import LoadingRepos from './LoadingRepos.vue';
 import { useThemeStore } from '../stores/theme';
-const store = useThemeStore()
+
+// Get a reference to the theme store
+const store = useThemeStore();
+
 import { RouterLink } from 'vue-router';
 
 let id;
-const datas = ref(null)
-const Repos = ref(null)
 
-const props = defineProps(['name'])
+// Define reactive references to hold data
+const datas = ref(null);
+const Repos = ref(null);
 
+// Define the props for the component
+const props = defineProps(['name']);
+
+// Watch for changes to the props and make an API call to fetch data
 watchEffect(async () => {
-    const res = await fetch(`https://api.github.com/repos/Youngtechie/${props.name}`)
-    datas.value = await res.json()
-})
+  const res = await fetch(`https://api.github.com/repos/Youngtechie/${props.name}`);
+  datas.value = await res.json();
+});
+
+// When the component is mounted, set a timeout to update the data after 3 seconds
 onMounted(() => {
-    id = setTimeout(() => {
-        if (datas.value !== null) {
-            Repos.value = datas.value
-        }
-    }, 3000)
+  id = setTimeout(() => {
+    if (datas.value !== null) {
+      Repos.value = datas.value;
+    }
+  }, 3000);
+});
 
-})
+// When the component is unmounted, clear the timeout
+onUnmounted(() => clearTimeout(id));
 
-onUnmounted(() => clearTimeout(id))
 </script>
 <template>
     <LoadingRepos v-if="Repos === null" />
