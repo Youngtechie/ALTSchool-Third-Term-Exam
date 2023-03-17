@@ -22,7 +22,8 @@ const router = createRouter({
       name: 'EachRepo',
       component: EachRepo,
     },
-    { path: '/:catchAll(.*)*', redirect: '/'}
+    { path: '/404', name: 'page-no-found', component: ErrorPage},
+    { path: '/:catchAll(.*)', redirect: '/404'}
     ]
 })
 
