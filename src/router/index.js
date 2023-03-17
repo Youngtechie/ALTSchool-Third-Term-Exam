@@ -5,7 +5,7 @@ import GithubHome from '../components/GithubHome.vue'
 import EachRepo from '../components/EachRepo.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
