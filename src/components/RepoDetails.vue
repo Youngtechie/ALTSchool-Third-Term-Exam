@@ -2,11 +2,12 @@
 import { ref, watchEffect, onMounted, onUnmounted } from 'vue';
 import LoadingRepos from './LoadingRepos.vue';
 import { useThemeStore } from '../stores/theme';
+import { RouterLink } from 'vue-router';
 
 // Get a reference to the theme store
 const store = useThemeStore();
 
-import { RouterLink } from 'vue-router';
+
 
 let id;
 
